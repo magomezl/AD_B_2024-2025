@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Personas>
+    <persona>
+        <nombre>Alejandro</nombre>
+        <apellido1>García</apellido1>
+        <apellido1>Gómez</apellido1>
+        <nacimiento>Thu Feb 11 00:00:00 CET 2010</nacimiento>
+    </persona>
+    <persona>
+        <nombre>María</nombre>
+        <apellido1>Alonso</apellido1>
+        <apellido1>Villar</apellido1>
+        <nacimiento>Sun Feb 13 00:00:00 CET 2000</nacimiento>
+    </persona>
+    <persona>
+        <nombre>Pedro</nombre>
+        <apellido1>Quintana</apellido1>
+        <apellido1>Redondo</apellido1>
+        <nacimiento>Sat Mar 11 00:00:00 CET 2000</nacimiento>
+    </persona>
+    <persona>
+        <nombre>Sandra</nombre>
+        <apellido1>Hernández</apellido1>
+        <apellido1>Ruiz</apellido1>
+        <nacimiento>Tue Oct 10 00:00:00 CEST 2000</nacimiento>
+    </persona>
+</Personas>

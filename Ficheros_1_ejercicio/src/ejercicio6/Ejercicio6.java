@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.Scanner;
 
 import repaso.Ejercicio3;
@@ -21,8 +20,7 @@ import java.io.ObjectOutputStream;
 public class Ejercicio6 {
 
 	private static Scanner sn = new Scanner(System.in);
-	private final static String DATOSFILEOUT = "FicheroSerializaPersonas.dat";
-	private final static String DATOSFILEOUT_BIS = "datosPersonasv2.dat";
+	private final static String DATOSFILEOUT = "FicheroPersonas_15_10_24.dat";
 	private static ObjectOutputStream oOS;
 	
 	public static void inicializar() {
@@ -43,8 +41,8 @@ public class Ejercicio6 {
 	}
 	
 	
-	public static Persona_v1 obtenerDatos() {
-		Persona_v1 persona = new Persona_v1();
+	public static Persona obtenerDatos() {
+		Persona persona = new Persona();
 		System.out.println("DATOS DE USUARIO:");
 		System.out.println("\tNombre:");
 		persona.setNombre(new StringBuilder(sn.nextLine()));
@@ -63,7 +61,7 @@ public class Ejercicio6 {
 	}
 	
 	
-	public static void escribirObjeto(Persona_v1 persona) {
+	public static void escribirObjeto(Persona persona) {
 		try {
 			oOS.writeObject(persona);
 		} catch (FileNotFoundException e) {
@@ -75,13 +73,13 @@ public class Ejercicio6 {
 		}
 	}
 	
-	public static void leerObjetos(String ficheroALeer) {
+	public static void leerObjetos() {
 		
 		try {
 			ObjectInputStream oIS = new ObjectInputStream(new FileInputStream
-					(new File(Ejercicio3.RUTADATOS+ficheroALeer)));
+					(new File(Ejercicio3.RUTADATOS+DATOSFILEOUT)));
 			try {
-				System.out.println("CONTENIDO DEL FICHERO " + ficheroALeer);
+				System.out.println("CONTENIDO DEL FICHERO " + DATOSFILEOUT);
 				while(true) {
 					System.out.println((Persona) oIS.readObject());
 				}
@@ -98,50 +96,19 @@ public class Ejercicio6 {
 		}
 	}
 	
-	public static void leev1Escribev2() {
-		try {
-			ObjectInputStream oIS = new ObjectInputStream(new FileInputStream
-					(new File(Ejercicio3.RUTADATOS+DATOSFILEOUT)));
-			ObjectOutputStream oOS = new ObjectOutputStream(new FileOutputStream(new File(Ejercicio3.RUTADATOS+DATOSFILEOUT_BIS), true));
-			Persona_v1 pOrigen = new Persona_v1();
-			Persona_v2 pDestino = new Persona_v2();
-			try {
-				while(true) {
-					pOrigen = (Persona_v1) oIS.readObject();
-					pDestino.setApellido1(pOrigen.getApellido1());
-					pDestino.setApellido2(pOrigen.getApellido2());
-					pDestino.setNombre(pOrigen.getNombre());
-					pDestino.setEdad(LocalDateTime.now().getYear()-pOrigen.getNacimiento().getYear());
-					oOS.writeObject(pDestino);
-				}
-			} catch (ClassNotFoundException e) {
-				System.out.println("Error de lectura");
-				e.printStackTrace();
-			}finally {
-				oIS.close();
-			}
-		} catch (EOFException e) {
-			
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public static void main(String[] args) {
 		
 		inicializar();
-//		escribirObjeto(obtenerDatos());
-//		escribirObjeto(obtenerDatos());
-//		
-//		leev1Escribev2();
-		leerObjetos(DATOSFILEOUT);
-		leerObjetos(DATOSFILEOUT_BIS);
+		escribirObjeto(obtenerDatos());
+		escribirObjeto(obtenerDatos());
+		leerObjetos();
 		try {
 			oOS.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }
