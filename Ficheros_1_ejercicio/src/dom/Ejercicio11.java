@@ -17,7 +17,9 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import ejercicio6.Persona;
@@ -33,87 +35,110 @@ import repaso.Ejercicio3;
 public class Ejercicio11 {
 	public final static String FICHEROTRABAJO = "FicheroPersonas_15_10_24.dat";
 	public final static String FICHEROTRABAJO_OUT = "FicheroPersonas_15_10_24.xml";
-	public static void main(String[] args) {
+	private static DocumentBuilderFactory dBf = DocumentBuilderFactory.newInstance();
+	private static DocumentBuilder dB; 
+	
+	public static void escribirXML() {
 		ObjectInputStream datos = null;
+		Document doc = null;
 		try {
 			datos = new ObjectInputStream(new FileInputStream(new File(Ejercicio3.RUTADATOS+FICHEROTRABAJO)));
-
-			DocumentBuilderFactory dBf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dB = dBf.newDocumentBuilder();
-			Document doc = dB.newDocument();
+			dB = dBf.newDocumentBuilder();
+			doc = dB.newDocument();
 			// creamos el elemento raiz
 			Element elementoRaiz = doc.createElement("Personas");
 			doc.appendChild(elementoRaiz);
 
 			Persona persona = new Persona();
-			try {
-				while(true) {
-					persona = (Persona) datos.readObject();
-					Element elementoPersona = doc.createElement("persona");
-					CreaElemento("nombre", persona.getNombre().toString(), elementoPersona, doc);
-					CreaElemento("apellido1", persona.getApellido1().toString(), elementoPersona, doc);
-					CreaElemento("apellido1", persona.getApellido2().toString(), elementoPersona, doc);
-					CreaElemento("nacimiento", persona.getNacimiento().toString(), elementoPersona, doc);
-					elementoRaiz.appendChild(elementoPersona);
-				}
-			}catch (EOFException e) {
+			
+
+			while(true) {
+				persona = (Persona) datos.readObject();
+				Element elementoPersona = doc.createElement("persona");
+
+//				CreaAtributo("nombre", persona.getNombre().toString(), elementoPersona);
+//				CreaAtributo("apellido1", persona.getApellido1().toString(), elementoPersona);
+//				CreaAtributo("apellido2", persona.getApellido1().toString(), elementoPersona);
+				CreaAtributo("nacimiento", persona.getNacimiento().toString(), elementoPersona);
+				
+				CreaTexto(persona.getNombre().toString() + " " + persona.getApellido1().toString() + " " +
+						persona.getApellido2().toString(), elementoPersona, doc);
+			
+//				CreaAtributo("nacimiento", persona.getNacimiento().toString(), elementoPersona);
+//				CreaElemento("nombre", persona.getNombre().toString(), elementoPersona, doc);
+//				CreaElemento("apellido1", persona.getApellido1().toString(), elementoPersona, doc);
+//				CreaElemento("apellido1", persona.getApellido2().toString(), elementoPersona, doc);
+//				CreaElemento("nacimiento", persona.getNacimiento().toString(), elementoPersona, doc);
+				elementoRaiz.appendChild(elementoPersona);
 				
 			}
-			// Pasamos el documento DOM de memoria a fichero físico (persistente)
-			TransformerFactory tF = TransformerFactory.newInstance();
-			Transformer t = tF.newTransformer();
-			t.setOutputProperty(OutputKeys.INDENT, "yes");
-			t.transform(new DOMSource(doc), new StreamResult(new File(Ejercicio3.RUTADATOS+FICHEROTRABAJO_OUT)));
-
+		}catch (EOFException e) {
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			try {
+				// Pasamos el documento DOM de memoria a fichero físico (persistente)
+				TransformerFactory tF = TransformerFactory.newInstance();
+				Transformer t = tF.newTransformer();
+				t.setOutputProperty(OutputKeys.INDENT, "yes");
+				t.transform(new DOMSource(doc), new StreamResult(new File(Ejercicio3.RUTADATOS+FICHEROTRABAJO_OUT)));
 				datos.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerConfigurationException e) {
+				e.printStackTrace();
+			} catch (TransformerException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	public static void escribeXML() {
 	
+	public static void main(String[] args) {
+		escribirXML();
+		leerXML();
 	}
+//	public static void escribeXML() {
+//		CreaAtributo("nombre", persona.getNombre().toString(), elementoPersona, doc);
+//		
+//	}
 	public static void leerXML() {
 		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-
-			//Cargamos en memoria el doc XML        
-			Document doc = builder.parse(new File(Ejercicio3.RUTADATOS + FICHEROTRABAJO_OUT));
-
+			Document doc = dB.parse(new File(Ejercicio3.RUTADATOS + FICHEROTRABAJO_OUT));
 			leeNodo(doc.getDocumentElement());
-
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	public static void leeNodo(Node nodo) {
-
-
+		if ( nodo.getNodeType()==Node.ELEMENT_NODE) {
+			System.out.print("<" + nodo.getNodeName());
+			//Obtengo los atributos
+			NamedNodeMap nNM = nodo.getAttributes();
+			if (nNM.getLength()>0) {
+				for (int i=0; i<nNM.getLength(); i++) {
+					System.out.print(" " + nNM.item(i).getNodeName() + "=" + nNM.item(i).getNodeValue());
+				}
+			}
+			System.out.print(">");
+			NodeList nodosHijos = nodo.getChildNodes();
+			if (nodosHijos.getLength()>0) {
+				if (nodosHijos.item(0).getNodeType()==Node.ELEMENT_NODE) { 
+					System.out.println("\t");
+				}
+				for (int i=0; i<nodosHijos.getLength(); i++) {
+					leeNodo(nodosHijos.item(i));
+				}
+				System.out.println("</" + nodo.getNodeName() + ">");
+			}
+		}else if (nodo.getNodeType()==Node.TEXT_NODE) {
+			System.out.print(nodo.getNodeValue());
+		}
 	}
-	
-
 	
 	private static void CreaElemento(String etiqueta, String valor, Element padre, Document doc) {
 		Element elemento = doc.createElement(etiqueta);
@@ -121,4 +146,14 @@ public class Ejercicio11 {
 		elemento.appendChild(texto);
 		padre.appendChild(elemento);
 	}
+	
+	private static void CreaAtributo(String etiqueta, String valor, Element padre){
+		padre.setAttribute(etiqueta, valor);
+	}
+	
+	private static void CreaTexto(String valor, Element padre, Document doc) {
+		Text texto = doc.createTextNode(valor);
+		padre.appendChild(texto);
+	}
+	
 }
