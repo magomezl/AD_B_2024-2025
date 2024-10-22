@@ -50,7 +50,6 @@ public class Ejercicio11 {
 			doc.appendChild(elementoRaiz);
 
 			Persona persona = new Persona();
-			
 
 			while(true) {
 				persona = (Persona) datos.readObject();
@@ -60,7 +59,6 @@ public class Ejercicio11 {
 //				CreaAtributo("apellido1", persona.getApellido1().toString(), elementoPersona);
 //				CreaAtributo("apellido2", persona.getApellido1().toString(), elementoPersona);
 				CreaAtributo("nacimiento", persona.getNacimiento().toString(), elementoPersona);
-				
 				CreaTexto(persona.getNombre().toString() + " " + persona.getApellido1().toString() + " " +
 						persona.getApellido2().toString(), elementoPersona, doc);
 			
