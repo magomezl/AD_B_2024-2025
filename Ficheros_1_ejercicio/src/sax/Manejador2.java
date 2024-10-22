@@ -11,12 +11,12 @@ public class Manejador2 extends DefaultHandler {
 
 	public Manejador2(String receta) {
 		super();
-		this.receta = receta;
+		this.receta = receta.toLowerCase();
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if (qName.equalsIgnoreCase("receta") &&  attributes.getValue("nombre").toLowerCase().contains(receta.toLowerCase())) {
+		if (qName.equalsIgnoreCase("receta") &&  attributes.getValue("nombre").toLowerCase().contains(receta)) {
 			System.out.println("Ingredientes de " + receta);
 			encontrado = true;
 		}
