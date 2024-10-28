@@ -1,0 +1,22 @@
+<familia>
+  <miembro name="Leandro">
+    <primerApellido>García</primerApellido>
+    <segundoApellido>Curiel</segundoApellido>
+    <nacimiento>1998-02-11 23:00:00.0 UTC</nacimiento>
+  </miembro>
+  <miembro name="Anselmo">
+    <primerApellido>Sanz</primerApellido>
+    <segundoApellido>Gallardo</segundoApellido>
+    <nacimiento>1976-09-09 22:00:00.0 UTC</nacimiento>
+  </miembro>
+  <miembro name="Almudena">
+    <primerApellido>Sanz</primerApellido>
+    <segundoApellido>Gil</segundoApellido>
+    <nacimiento>2000-09-10 22:00:00.0 UTC</nacimiento>
+  </miembro>
+  <miembro name="Cesar">
+    <primerApellido>Santiago</primerApellido>
+    <segundoApellido>Gómez</segundoApellido>
+    <nacimiento>2000-09-10 22:00:00.0 UTC</nacimiento>
+  </miembro>
+</familia>
