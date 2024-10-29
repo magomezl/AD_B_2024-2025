@@ -24,6 +24,11 @@ public class Ejercicio6 {
 	private final static String DATOSFILEOUT = "FicheroPersonas_15_10_24.dat";
 	private static ObjectOutputStream oOS;
 	
+	public static ObjectOutputStream getoOS() {
+		return oOS;
+	}
+
+
 	public static void inicializar() {
 		try {
 			File file = new File(Utilidades.getRutadatos()+DATOSFILEOUT);
@@ -102,8 +107,8 @@ public class Ejercicio6 {
 	public static void main(String[] args) {
 		
 		inicializar();
-		escribirObjeto(obtenerDatos());
-		escribirObjeto(obtenerDatos());
+//		escribirObjeto(obtenerDatos());
+//		escribirObjeto(obtenerDatos());
 		leerObjetos();
 		try {
 			oOS.close();
