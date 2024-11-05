@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <examen>
     <autores>
-        <autor id="A1">
-            <nombre>Juan Antonio</nombre>
-            <apellido1>García</apellido1>
-            <apellido2>Pérez</apellido2>
-            <puesto>Profesor titular</puesto>
-            <entidadTrabajo>Universidad de Salamanca</entidadTrabajo>
-        </autor>
-        <autor id="A2">
-            <nombre>Lucía</nombre>
-            <apellido1>Alcántara</apellido1>
-            <apellido2>Gómez</apellido2>
-            <puesto>Profesor asociado</puesto>
-            <entidadTrabajo>Universidad de Valladolid</entidadTrabajo>
-        </autor>
         <autor id="A3">
             <nombre>Julia</nombre>
             <apellido1>Hernández</apellido1>
             <apellido2>Sánchez</apellido2>
             <puesto>Profesor titular</puesto>
             <entidadTrabajo>Universidad de Salamanca</entidadTrabajo>
+        </autor>
+        <autor id="A33">
+            <nombre>Aurora</nombre>
+            <apellido1>Gomez</apellido1>
+            <apellido2>Lopez</apellido2>
+            <puesto>Directora</puesto>
+            <entidadTrabajo>Instituto</entidadTrabajo>
+        </autor>
+        <autor id="A66">
+            <nombre>Alvaro</nombre>
+            <apellido1>Redondo</apellido1>
+            <apellido2>Quintana</apellido2>
+            <puesto>Operario</puesto>
+            <entidadTrabajo>Lomer</entidadTrabajo>
+        </autor>
+        <autor id="A55">
+            <nombre>Miguel</nombre>
+            <apellido1>Alcantara</apellido1>
+            <apellido2>Gómez</apellido2>
+            <puesto>Director de ventas</puesto>
+            <entidadTrabajo></entidadTrabajo>
         </autor>
     </autores>
     <preguntas>
