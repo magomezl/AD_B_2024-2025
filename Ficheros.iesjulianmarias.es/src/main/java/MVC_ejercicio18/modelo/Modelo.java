@@ -71,7 +71,7 @@ public class Modelo {
 //		
 //	}
 	
-	private static int anadirDpto(String dptoNom, String dptoLoc) {
+	public static int anadirDpto(String dptoNom, String dptoLoc) {
 		try {
 			PreparedStatement sentencia = Conexion.getInstance().getCon().prepareStatement(
 					"INSERT INTO departamentos (dnombre, loc) VALUES (?, ?)");

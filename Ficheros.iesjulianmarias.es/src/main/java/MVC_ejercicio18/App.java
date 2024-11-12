@@ -1,8 +1,8 @@
 package MVC_ejercicio18;
 
-import mvc_ejercicio18DEMO.controlador.Controlador;
-import mvc_ejercicio18DEMO.modelo.Modelo;
-import mvc_ejercicio18DEMO.vista.Vista;
+import MVC_ejercicio18.controlador.Controlador;
+import MVC_ejercicio18.modelo.Modelo;
+import MVC_ejercicio18.vista.Vista;
 
 public class App {
 

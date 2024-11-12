@@ -182,5 +182,8 @@ public class Vista extends JFrame {
 		
 		
 		panelCRUD.add(scrollPane);
+		setTitle("CRUB DB");
+		setVisible(true);
+		
 	}
 }
