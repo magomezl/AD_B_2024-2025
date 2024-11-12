@@ -6,23 +6,33 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class Vista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textUser;
-	private JPasswordField textPassword;
-	private JPanel panelSesion;
-	private JPanel panelCRUD;
-	private JTextField textNombre;
-	private JTextField textLocalidad;
+	public JPanel contentPane;
+	public JTextField textUser;
+	public JPasswordField textPassword;
+	public JPanel panelSesion;
+	public JPanel panelCRUD;
+	public JTextField textNombre;
+	public JTextField textLocalidad;
+	public JTable tableResultados;
+	public DefaultTableModel modeloTbl = new DefaultTableModel(); 
+	public JButton btnNuevo;
+	public JButton btnListar;
+	public JButton btnModificar;
+	public JButton btnBorrar;
+	public JButton btnGuardar;
 
 	/**
 	 * Launch the application.
@@ -75,8 +85,7 @@ public class Vista extends JFrame {
 		mnConectar.add(mntmIniciarSesion);
 		
 		JMenu mnSalir = new JMenu("Salir");
-		mnSalir.setBounds(73, -4, 115, 26);
-		contentPane.add(mnSalir);
+		menuBar.add(mnSalir);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Desconectar");
 		mnSalir.add(mntmNewMenuItem);
@@ -90,21 +99,21 @@ public class Vista extends JFrame {
 		panelSesion.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario");
-		lblNewLabel.setBounds(10, 25, 46, 14);
+		lblNewLabel.setBounds(10, 25, 63, 14);
 		panelSesion.add(lblNewLabel);
 		
 		textUser = new JTextField();
-		textUser.setBounds(60, 22, 86, 20);
+		textUser.setBounds(83, 22, 91, 20);
 		panelSesion.add(textUser);
 		textUser.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(10, 57, 46, 14);
+		lblPassword.setBounds(10, 57, 63, 14);
 		panelSesion.add(lblPassword);
 		
 		textPassword = new JPasswordField();
 		textPassword.setColumns(10);
-		textPassword.setBounds(60, 54, 86, 20);
+		textPassword.setBounds(83, 54, 91, 20);
 		panelSesion.add(textPassword);
 		
 		JButton btnSesion = new JButton("Iniciar Sesión");
@@ -112,46 +121,66 @@ public class Vista extends JFrame {
 		panelSesion.add(btnSesion);
 		
 		panelCRUD = new JPanel();
-		panelCRUD.setBounds(215, 33, 298, 333);
+		panelCRUD.setBounds(215, 33, 298, 404);
 		contentPane.add(panelCRUD);
 		panelCRUD.setLayout(null);
 		
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
-		textNombre.setBounds(80, 28, 86, 20);
+		textNombre.setBounds(94, 28, 72, 20);
 		panelCRUD.add(textNombre);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(30, 31, 46, 14);
+		lblNombre.setBounds(10, 31, 66, 14);
 		panelCRUD.add(lblNombre);
 		
 		textLocalidad = new JTextField();
 		textLocalidad.setColumns(10);
-		textLocalidad.setBounds(80, 59, 86, 20);
+		textLocalidad.setBounds(94, 59, 72, 20);
 		panelCRUD.add(textLocalidad);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Localidad");
-		lblNewLabel_1_1.setBounds(30, 62, 46, 14);
+		lblNewLabel_1_1.setBounds(10, 62, 66, 14);
 		panelCRUD.add(lblNewLabel_1_1);
 		
-		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("Nuevo");
 		btnNuevo.setBounds(176, 27, 95, 23);
 		panelCRUD.add(btnNuevo);
 		
-		JButton btnListar = new JButton("Listar");
+		btnListar = new JButton("Listar");
 		btnListar.setBounds(176, 55, 95, 23);
 		panelCRUD.add(btnListar);
 		
-		JButton btnModificar = new JButton("Modificar");
+		btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(176, 83, 95, 23);
 		panelCRUD.add(btnModificar);
 		
-		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("Borrar");
 		btnBorrar.setBounds(176, 114, 95, 23);
 		panelCRUD.add(btnBorrar);
 		
-		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(176, 142, 95, 23);
 		panelCRUD.add(btnGuardar);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 189, 244, 161);
+		
+		
+		tableResultados = new JTable();
+		tableResultados.setModel(modeloTbl);
+		Object[] identificadores = {"Id", "Nombre", "Localidad"};
+		modeloTbl.setColumnIdentifiers(identificadores);
+		scrollPane.setViewportView(tableResultados);
+		tableResultados.setFillsViewportHeight(true);
+		
+		
+		tableResultados.setBounds(27, 189, 244, 161);
+		
+		panelCRUD.add(scrollPane);
+		
+		
+		
+		panelCRUD.add(scrollPane);
 	}
 }
