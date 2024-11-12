@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Vista extends JFrame {
 
@@ -33,6 +35,12 @@ public class Vista extends JFrame {
 	public JButton btnModificar;
 	public JButton btnBorrar;
 	public JButton btnGuardar;
+	public JMenuItem mntmOracle;
+	public JMenuItem mntmMySQL;
+	public JMenuItem mntmSQLite;
+	public JMenuItem mntmIniciarSesion;
+	public JMenuItem mntmNewMenuItem;
+	public JMenuItem mntmSalir;
 
 	/**
 	 * Launch the application.
@@ -72,25 +80,25 @@ public class Vista extends JFrame {
 		JMenu mnConectarDB = new JMenu("Conectar bbdd");
 		mnConectar.add(mnConectarDB);
 		
-		JMenuItem mntmOracle = new JMenuItem("Oracle");
+		mntmOracle = new JMenuItem("Oracle");
 		mnConectarDB.add(mntmOracle);
 		
-		JMenuItem mntmMySQL = new JMenuItem("MySQL");
+		mntmMySQL = new JMenuItem("MySQL");
 		mnConectarDB.add(mntmMySQL);
 		
-		JMenuItem mntmSQLite = new JMenuItem("SQLite");
+		mntmSQLite = new JMenuItem("SQLite");
 		mnConectarDB.add(mntmSQLite);
 		
-		JMenuItem mntmIniciarSesion = new JMenuItem("Iniciar Sesión");
+		mntmIniciarSesion = new JMenuItem("Iniciar Sesión");
 		mnConectar.add(mntmIniciarSesion);
 		
 		JMenu mnSalir = new JMenu("Salir");
 		menuBar.add(mnSalir);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Desconectar");
+		mntmNewMenuItem = new JMenuItem("Desconectar");
 		mnSalir.add(mntmNewMenuItem);
 		
-		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir = new JMenuItem("Salir");
 		mnSalir.add(mntmSalir);
 		
 		panelSesion = new JPanel();
@@ -144,6 +152,7 @@ public class Vista extends JFrame {
 		panelCRUD.add(lblNewLabel_1_1);
 		
 		btnNuevo = new JButton("Nuevo");
+		
 		btnNuevo.setBounds(176, 27, 95, 23);
 		panelCRUD.add(btnNuevo);
 		

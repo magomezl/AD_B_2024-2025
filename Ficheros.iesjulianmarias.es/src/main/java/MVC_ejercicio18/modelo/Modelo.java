@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 import ficheros.Utilidades;
 
@@ -109,19 +110,22 @@ public class Modelo {
 		}
 	}
 
-	private static void listarDptos() {
+	public static ArrayList<Departamento> listarDptos() {
 		PreparedStatement sentencia =null;
 		ResultSet resultado = null;
+		ArrayList<Departamento> arDpto = new ArrayList<Departamento>();
 		try {
 			sentencia = Conexion.getInstance().getCon().prepareStatement("SELECT * FROM departamentos");
 			resultado = sentencia.executeQuery();
 			while (resultado.next()) {
-				System.out.println("\t" + resultado.getInt(1) + "\t" + resultado.getString(2) +
-						"\t" + resultado.getString(3));
+				arDpto.add(new Departamento(resultado.getInt(1), resultado.getString(2), resultado.getString(3)));
 			}
-			
+			sentencia.close();
+			resultado.close();
+			return arDpto;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}finally {
 			try {
 				sentencia.close();
