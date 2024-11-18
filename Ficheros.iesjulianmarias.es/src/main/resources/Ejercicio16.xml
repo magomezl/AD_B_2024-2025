@@ -8,26 +8,12 @@
             <puesto>Profesor titular</puesto>
             <entidadTrabajo>Universidad de Salamanca</entidadTrabajo>
         </autor>
-        <autor id="A33">
+        <autor id="A1">
             <nombre>Aurora</nombre>
-            <apellido1>Gomez</apellido1>
-            <apellido2>Lopez</apellido2>
-            <puesto>Directora</puesto>
-            <entidadTrabajo>Instituto</entidadTrabajo>
-        </autor>
-        <autor id="A66">
-            <nombre>Alvaro</nombre>
-            <apellido1>Redondo</apellido1>
-            <apellido2>Quintana</apellido2>
-            <puesto>Operario</puesto>
-            <entidadTrabajo>Lomer</entidadTrabajo>
-        </autor>
-        <autor id="A55">
-            <nombre>Miguel</nombre>
-            <apellido1>Alcantara</apellido1>
-            <apellido2>Gómez</apellido2>
-            <puesto>Director de ventas</puesto>
-            <entidadTrabajo></entidadTrabajo>
+            <apellido1>Gómez</apellido1>
+            <apellido2>López</apellido2>
+            <puesto>Profesora ASIR</puesto>
+            <entidadTrabajo>IES Galileo</entidadTrabajo>
         </autor>
     </autores>
     <preguntas>

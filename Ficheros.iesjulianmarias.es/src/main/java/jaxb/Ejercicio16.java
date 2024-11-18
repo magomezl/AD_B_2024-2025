@@ -65,7 +65,8 @@ public class Ejercicio16 {
 	}
 
 	public static void menu() {
-		Scanner sc = new Scanner(System.in);	
+		Scanner sc = new Scanner(System.in);
+		Scanner scI = new Scanner(System.in);
 		boolean salir = false;
 		while(!salir) {
 			System.out.println("\n1. Leer autores");
@@ -84,7 +85,7 @@ public class Ejercicio16 {
 				case 2:
 					System.out.println("ELIMINAR AUTOR");
 					System.out.println("Indique el id del autor a eliminar: ");
-					System.out.println(borrarAutor(sc.next())?"El autor se eliminó con éxito":"El autor no existe");
+					System.out.println(borrarAutor(scI.nextLine())?"El autor se eliminó con éxito":"El autor no existe");
 					break;
 				case 3:
 					System.out.println("AÑADIENDO AUTOR");
@@ -94,11 +95,11 @@ public class Ejercicio16 {
 				case 4:
 					System.out.println("MODIFICANDO DATOS DE AUTOR");
 					System.out.println("Indique el id del autor a modificar: ");
-					String idAutor = sc.nextLine();
+					String idAutor = scI.nextLine();
 					System.out.println("Nueva Entidad de Trabajo: ");
-					String newET = sc.nextLine();
+					String newET = scI.nextLine();
 					System.out.println("Nuevo Puesto: ");
-					String newP = sc.nextLine();
+					String newP = scI.nextLine();
 					System.out.println(modificarAutor(idAutor, newET, newP)?"Autor modificado con éxito":"Autor NO modificado");
 					break;
 				case 5:
@@ -192,7 +193,6 @@ public class Ejercicio16 {
 		autor.setEntidadTrabajo(eT);
 		System.out.println("Puesto: ");
 		String p = sn.nextLine();
-		sn.close();
 		autor.setPuesto(p);
 		
 		return autor;
