@@ -45,13 +45,16 @@ public class Modelo {
 //			System.out.println(dpto);
 //		}
 //		sesion.close();
-		anadirEmpleado("Pascual", "García", "Gómez", "Salud" );
+//		System.out.println("Este no se almacena");
+//		anadirEmpleado("Elena", "García", "Gómez", "Marketing" );
+		anadirDpto("LL","LLLLL");
+		
 		System.out.println("Este pregunta");
-		anadirEmpleado("Sandra", "Pérez", "Arnau", "Salud" );
-		System.out.println("Este no se almacena");
-		anadirEmpleado("Sandra", "Pérez", "Arnau", "Marketing" );
-		System.out.println("Este se almacena tb el dpto");
-		anadirEmpleado("Sonia", "Pérez", "Arnau", "Propaganda" );
+		anadirEmpleado("Pascual", "García", "Gómez", "Cualquiera2" );
+//		System.out.println("Este se almacena tb el dpto");
+//		anadirEmpleado("Sandra", "Pérez", "Arnau", "Finanzas" );
+//		System.out.println("Este lo almacena en el único dpto");
+//		anadirEmpleado("Sonia", "Pérez", "Arnau", "Finanzas" );
 	}
 	
 	
@@ -69,6 +72,8 @@ public class Modelo {
 	private static void anadirEmpleado(String nombre, String apellido1, String apellido2, String dpto) {
 		Scanner sc = new Scanner(System.in);
 		Departamentos dptoObj= new Departamentos();
+		Empleados empObj = new Empleados();
+		Integer idGenerado = 0;
 		sesion = sf.openSession();
 		Transaction t = sesion.beginTransaction();
 		if (existeEmpleado(nombre, apellido1, apellido2)) {
@@ -80,9 +85,19 @@ public class Modelo {
 			if (dptos.isEmpty()) {
 				System.out.println("No existe el departamento indicado, indique la localidad del mismo para incluirlo:");
 				String localidad = sc.next();
-				dptoObj = new Departamentos(dpto, localidad, null);
+				dptoObj.setDnombre(dpto);
+				dptoObj.setLoc(localidad);
+				int generatedId = (int) sesion.save(dptoObj);
 				//Quizá no se necesite
-				sesion.persist(dptoObj);
+				empObj.setDepartamentos(sesion.get(Departamentos.class, generatedId));
+				empObj.setNombre(nombre);
+				empObj.setApellido1(apellido1);
+				empObj.setApellido2(apellido2);
+				
+				sesion.save(empObj);
+				t.commit();
+				sesion.close();
+				System.out.println("Cierro sesion");
 			}else if (dptos.size()>1) {
 				//Elegir departamento
 				System.out.println("Departamentos con el nombre seleccionado:");
@@ -93,15 +108,22 @@ public class Modelo {
 				String idDpto = sc.next();
 				//Recuperamos el departamento
 				dptoObj = sesion.get(Departamentos.class, Integer.valueOf(idDpto));
+				System.out.println("Departamento:");
+				System.out.println(dptoObj);
+				empObj = new Empleados(dptoObj, nombre, apellido1, apellido2);
+				sesion.persist(empObj);
+				t.commit();
+				sesion.close();
+				
 			}else if (dptos.size()==1) {
 				System.out.println("Hay un departamento con ese nombre");
 				dptoObj = dptos.getFirst();
+				empObj = new Empleados(dptoObj, nombre, apellido1, apellido2);
+				System.out.println("Departamento:");
+				System.out.println(dptoObj);
 			}
 			// Añadir al empleado 
 			
-			sesion.persist(new Empleados(sesion.get(Departamentos.class, dptoObj.getDeptNo()), nombre, apellido1, apellido2));
-			t.commit();
-			sesion.close();
 		}
 	}
 
