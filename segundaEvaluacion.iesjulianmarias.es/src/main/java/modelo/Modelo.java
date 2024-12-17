@@ -47,10 +47,12 @@ public class Modelo {
 //		sesion.close();
 //		System.out.println("Este no se almacena");
 //		anadirEmpleado("Elena", "García", "Gómez", "Marketing" );
-		anadirDpto("LL","LLLLL");
+//		anadirDpto("LL","LLLLL");
 		
-		System.out.println("Este pregunta");
-		anadirEmpleado("Pascual", "García", "Gómez", "Cualquiera2" );
+//		System.out.println("Este pregunta");
+//		anadirEmpleado("Pascual", "García", "Gómez", "Cualquiera2" );
+//		anadirEmpleado("Pascualon", "García", "Gómez", "Marketing" );
+		eliminarEmpleado("Pascual", "García", "Gómez");
 //		System.out.println("Este se almacena tb el dpto");
 //		anadirEmpleado("Sandra", "Pérez", "Arnau", "Finanzas" );
 //		System.out.println("Este lo almacena en el único dpto");
@@ -58,6 +60,53 @@ public class Modelo {
 	}
 	
 	
+	
+	
+	
+	private static void eliminarEmpleado(String name, String sname1, String sname2) {
+		Scanner sc = new Scanner(System.in);
+		sesion = sf.openSession();
+		Transaction t = sesion.beginTransaction();
+		
+		String hql = "FROM Empleados e WHERE e.nombre = :nombre AND e.apellido1 = :apellido1 AND "
+				+ "e.apellido2 = :apellido2";
+		List<Empleados> empleados = sesion.createQuery(hql, Empleados.class)
+				.setParameter("nombre", name)
+				.setParameter("apellido1", sname1)
+				.setParameter("apellido2", sname2)
+				.getResultList();
+		
+		if (empleados.isEmpty()) {
+			System.out.println("No existe el empleado que desea borrar");
+			
+		}else {
+			Departamentos dptoEmpleado = empleados.get(0).getDepartamentos();
+			
+			String hql2 = "SELECT count(e) FROM Empleados e WHERE e.departamentos = :dpto";
+			Long empleadosDpto = (Long) sesion.createQuery(hql2)
+					.setParameter("dpto", dptoEmpleado)
+					.getSingleResult();
+			if (empleadosDpto==1) {
+				System.out.println("El departamento " +  dptoEmpleado.getDnombre() + " no tiene más empleados.");
+                System.out.print("¿Quieres eliminar ese departamento? (S/N): ");
+                sc = new Scanner(System.in);
+                String respuesta = sc.nextLine().trim().toLowerCase();
+                if (respuesta.equals("s")) {
+                	sesion.remove(dptoEmpleado);
+                	
+                }
+			}
+			sesion.remove(empleados.getFirst());
+			t.commit();
+			sesion.close();
+		}
+
+	}
+
+
+
+
+
 	/**
 	 * Comprobar si existe un empleado con el mismo nombre, apellido1 y apellido2, si es así no hace nada
 	 * si no, comprobar existencia del dpto, si el departamento no existe, lo almacenamos pidiendo los datos que sean necesarios,
@@ -72,7 +121,7 @@ public class Modelo {
 	private static void anadirEmpleado(String nombre, String apellido1, String apellido2, String dpto) {
 		Scanner sc = new Scanner(System.in);
 		Departamentos dptoObj= new Departamentos();
-		Empleados empObj = new Empleados();
+		Empleados empObj = null;
 		Integer idGenerado = 0;
 		sesion = sf.openSession();
 		Transaction t = sesion.beginTransaction();
@@ -88,16 +137,11 @@ public class Modelo {
 				dptoObj.setDnombre(dpto);
 				dptoObj.setLoc(localidad);
 				int generatedId = (int) sesion.save(dptoObj);
-				//Quizá no se necesite
+				empObj = new Empleados();
 				empObj.setDepartamentos(sesion.get(Departamentos.class, generatedId));
 				empObj.setNombre(nombre);
 				empObj.setApellido1(apellido1);
 				empObj.setApellido2(apellido2);
-				
-				sesion.save(empObj);
-				t.commit();
-				sesion.close();
-				System.out.println("Cierro sesion");
 			}else if (dptos.size()>1) {
 				//Elegir departamento
 				System.out.println("Departamentos con el nombre seleccionado:");
@@ -111,22 +155,19 @@ public class Modelo {
 				System.out.println("Departamento:");
 				System.out.println(dptoObj);
 				empObj = new Empleados(dptoObj, nombre, apellido1, apellido2);
-				sesion.persist(empObj);
-				t.commit();
-				sesion.close();
-				
 			}else if (dptos.size()==1) {
 				System.out.println("Hay un departamento con ese nombre");
 				dptoObj = dptos.getFirst();
 				empObj = new Empleados(dptoObj, nombre, apellido1, apellido2);
-				System.out.println("Departamento:");
-				System.out.println(dptoObj);
 			}
 			// Añadir al empleado 
-			
+			sesion.save(empObj);
+			t.commit();
+			sesion.close();
 		}
 	}
 
+	
 	
 	
 
