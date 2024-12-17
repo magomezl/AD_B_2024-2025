@@ -6,6 +6,8 @@ package clasesHibernate;
  */
 public class Empleados implements java.io.Serializable {
 
+	
+
 	private Integer id;
 	private Departamentos departamentos;
 	private String nombre;
@@ -65,6 +67,11 @@ public class Empleados implements java.io.Serializable {
 
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
+	}
+	
+	@Override
+	public String toString() {
+		return apellido1 + " " + apellido2 + ", " + nombre + " (" + departamentos.getDnombre() + ")";
 	}
 
 }

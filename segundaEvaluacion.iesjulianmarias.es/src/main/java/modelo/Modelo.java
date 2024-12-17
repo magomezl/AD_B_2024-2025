@@ -1,8 +1,10 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -52,7 +54,16 @@ public class Modelo {
 //		System.out.println("Este pregunta");
 //		anadirEmpleado("Pascual", "García", "Gómez", "Cualquiera2" );
 //		anadirEmpleado("Pascualon", "García", "Gómez", "Marketing" );
-		eliminarEmpleado("Pascual", "García", "Gómez");
+		System.out.println("\n\nListar Empleados TODOS");
+		listarEmpleados();
+		
+		eliminarEmpleado("Pascualina", "García", "Gómez");
+		System.out.println("\n\nListar Empleados TODOS");
+		listarEmpleados();
+		
+		System.out.println("\n\nListar Empleados DPTO ");
+		listarEmpleados("Contabilidad");
+		
 //		System.out.println("Este se almacena tb el dpto");
 //		anadirEmpleado("Sandra", "Pérez", "Arnau", "Finanzas" );
 //		System.out.println("Este lo almacena en el único dpto");
@@ -63,6 +74,36 @@ public class Modelo {
 	
 	
 	
+	private static ArrayList<Empleados> listarEmpleados() {
+		sesion = sf.openSession();
+		List<Empleados> empleados = new ArrayList<Empleados>();
+		empleados = sesion.createQuery("FROM Empleados", Empleados.class)
+				.getResultList();
+		
+		for(Empleados emp: empleados) {
+			System.out.println(emp);
+		}
+		sesion.close();
+		return (ArrayList<Empleados>) empleados;
+	}
+
+	private static ArrayList<Empleados> listarEmpleados(String dpto) {
+		sesion = sf.openSession();
+		List<Empleados> empleados = new ArrayList<Empleados>();
+		empleados = sesion.createQuery("FROM Empleados where departamentos.dnombre = :dptoName ", Empleados.class)
+				.setParameter("dptoName", dpto)
+				.getResultList();
+		
+		for(Empleados emp: empleados) {
+			System.out.println(emp);
+		}
+		sesion.close();
+		return (ArrayList<Empleados>) empleados;
+	}
+
+
+
+
 	private static void eliminarEmpleado(String name, String sname1, String sname2) {
 		Scanner sc = new Scanner(System.in);
 		sesion = sf.openSession();
@@ -83,7 +124,7 @@ public class Modelo {
 			Departamentos dptoEmpleado = empleados.get(0).getDepartamentos();
 			
 			String hql2 = "SELECT count(e) FROM Empleados e WHERE e.departamentos = :dpto";
-			Long empleadosDpto = (Long) sesion.createQuery(hql2)
+			Long empleadosDpto = (Long) sesion.createQuery(hql2, Long.class)
 					.setParameter("dpto", dptoEmpleado)
 					.getSingleResult();
 			if (empleadosDpto==1) {
@@ -93,17 +134,16 @@ public class Modelo {
                 String respuesta = sc.nextLine().trim().toLowerCase();
                 if (respuesta.equals("s")) {
                 	sesion.remove(dptoEmpleado);
-                	
                 }
 			}
 			sesion.remove(empleados.getFirst());
 			t.commit();
 			sesion.close();
 		}
-
 	}
 
 
+	
 
 
 
