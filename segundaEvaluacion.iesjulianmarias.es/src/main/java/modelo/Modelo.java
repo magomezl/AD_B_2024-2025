@@ -54,15 +54,17 @@ public class Modelo {
 //		System.out.println("Este pregunta");
 //		anadirEmpleado("Pascual", "García", "Gómez", "Cualquiera2" );
 //		anadirEmpleado("Pascualon", "García", "Gómez", "Marketing" );
-		System.out.println("\n\nListar Empleados TODOS");
-		listarEmpleados();
+//		System.out.println("\n\nListar Empleados TODOS");
+//		listarEmpleados();
+//		
+//		eliminarEmpleado("Pascualina", "García", "Gómez");
+//		System.out.println("\n\nListar Empleados TODOS");
+//		listarEmpleados();
+//		
+//		System.out.println("\n\nListar Empleados DPTO ");
+//		listarEmpleados("Contabilidad");
 		
-		eliminarEmpleado("Pascualina", "García", "Gómez");
-		System.out.println("\n\nListar Empleados TODOS");
-		listarEmpleados();
-		
-		System.out.println("\n\nListar Empleados DPTO ");
-		listarEmpleados("Contabilidad");
+		modificarEmpleado("Sofia", "Gómez", "Gil", "Propaganda");
 		
 //		System.out.println("Este se almacena tb el dpto");
 //		anadirEmpleado("Sandra", "Pérez", "Arnau", "Finanzas" );
@@ -73,7 +75,67 @@ public class Modelo {
 	
 	
 	
-	
+	 
+	private static void modificarEmpleado(String nombre, String apellido1, String apellido2, String dptoNew) {
+		Scanner sc = new Scanner(System.in);
+		Departamentos dptoObj= new Departamentos();
+		Empleados empObj;
+		Integer idGenerado = 0;
+		sesion = sf.openSession();
+		Transaction t = sesion.beginTransaction();
+		Integer idEmp; 
+		if ((idEmp=existeEmpleado(nombre, apellido1, apellido2))==0) {
+			sesion.close();
+			System.out.println("No existe el empleado que pretende modificar");
+		}else {
+			List<Departamentos> dptos = new ArrayList<Departamentos>();
+			dptos = listarDptosNombre(dptoNew);
+			if (dptos.isEmpty()) {
+				System.out.println("No existe el departamento indicado, indique la localidad del mismo para incluirlo:");
+				String localidad = sc.next();
+				dptoObj.setDnombre(dptoNew);
+				dptoObj.setLoc(localidad);
+				int generatedId = (int) sesion.save(dptoObj);
+				empObj = sesion.get(Empleados.class, idEmp);
+				empObj.setDepartamentos(sesion.get(Departamentos.class, generatedId));
+				sesion.merge(empObj);
+				t.commit();
+				sesion.close();
+			}else if (dptos.size()>1) {
+				//Elegir departamento
+				System.out.println("Departamentos con el nombre seleccionado:");
+				for(Departamentos dptoObjbis: dptos) {
+					System.out.println(dptoObjbis);
+				}
+				System.out.println("Indique el código del departamento al que desea añadir al empleado:");
+				String idDpto = sc.next();
+				//Recuperamos el departamento
+				dptoObj = sesion.get(Departamentos.class, Integer.valueOf(idDpto));
+				empObj = sesion.get(Empleados.class, idEmp);
+				empObj.setDepartamentos(dptoObj);
+				sesion.merge(empObj);
+				t.commit();
+				sesion.close();
+			}else if (dptos.size()==1) {
+				System.out.println("Hay un departamento con ese nombre");
+				dptoObj = dptos.getFirst();
+				System.out.println(dptoObj);
+				empObj = sesion.get(Empleados.class, idEmp);
+				empObj.setDepartamentos(dptoObj);
+				sesion.merge(empObj);
+				t.commit();
+				sesion.close();
+			}
+			// Añadir al empleado 
+			
+		}
+		
+	}
+
+
+
+
+
 	private static ArrayList<Empleados> listarEmpleados() {
 		sesion = sf.openSession();
 		List<Empleados> empleados = new ArrayList<Empleados>();
@@ -165,7 +227,7 @@ public class Modelo {
 		Integer idGenerado = 0;
 		sesion = sf.openSession();
 		Transaction t = sesion.beginTransaction();
-		if (existeEmpleado(nombre, apellido1, apellido2)) {
+		if (existeEmpleado(nombre, apellido1, apellido2)!=0) {
 			sesion.close();
 			System.out.println("Ya existe el empleado");
 		}else {
@@ -269,13 +331,26 @@ public class Modelo {
 	 * @return true si existe el empleado y false en caso contrario
 	 */
 	
-	private static boolean existeEmpleado(String nombre, String apellido1, String apellido2) {
-		 
-		TypedQuery<Empleados> consulta =  sesion.createQuery("from Empleados where nombre='" + nombre + "' and apellido1='" + apellido1 +"' and apellido2='" + apellido2 + "'", Empleados.class);
-		if (!consulta.getResultList().isEmpty()) {
-			return true;
+	private static Integer existeEmpleado(String nombre, String apellido1, String apellido2) {
+		
+		try {
+		Empleados emp = null;
+		emp = sesion.createQuery("from Empleados where nombre= :nombre and "
+				+ " apellido1= :apellido1 and apellido2 = :apellido2", Empleados.class)
+			.setParameter("nombre", nombre)
+			.setParameter("apellido1", apellido1)
+			.setParameter("apellido2", apellido2)
+			.getResultList()
+			.get(0);
+		int id = emp.getId();
+		
+		System.out.println(id);
+		return id;
+		
+		}catch (IndexOutOfBoundsException e) {
+			return 0;
 		}
-		return false;
+		
 	}
 
 
