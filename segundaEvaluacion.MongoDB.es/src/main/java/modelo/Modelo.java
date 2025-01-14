@@ -41,7 +41,7 @@ public class Modelo {
 //		mostrarLibros("ciencia ficción");
 	
 		actualizarPrecios(-50);
-		System.out.println("/n/n/nCON SUBIDA");
+		
 		
 		cliente.close();
 	}
