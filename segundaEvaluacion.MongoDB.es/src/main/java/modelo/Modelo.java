@@ -39,11 +39,9 @@ public class Modelo {
 //		anadirLibroAutorReferenciado("El libro de los amores ridículos", "novela", "Milan Kundera", "Checa", 1929, personajesELAR);
 		
 //		mostrarLibros("ciencia ficción");
-		System.out.println("SIN SUBIDA");
-		mostrarLibros();
+	
 		actualizarPrecios(-50);
 		System.out.println("/n/n/nCON SUBIDA");
-		mostrarLibros();
 		
 		cliente.close();
 	}
