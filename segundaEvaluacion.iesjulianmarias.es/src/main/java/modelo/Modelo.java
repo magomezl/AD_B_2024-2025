@@ -126,8 +126,6 @@ public class Modelo {
 				t.commit();
 				sesion.close();
 			}
-			// Añadir al empleado 
-			
 		}
 		
 	}
