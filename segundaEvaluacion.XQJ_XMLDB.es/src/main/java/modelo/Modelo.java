@@ -1,7 +1,17 @@
 package modelo;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Node;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Database;
@@ -58,10 +68,67 @@ public class Modelo {
 		//listarContenido(ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML").getCol());
 //		creaBorraColeccion(ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML").getCol(), "coleccion1", 'd');
 //		creaBorraColeccion(ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML").getCol(), "coleccionCreada", 'c');
-		creaDocumentoString(ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML/coleccionCreada/").getCol(), 
-				"mascotas.xml", "<mascotas><mascota nombre='lolo' especie='perro'/><mascota nombre='mico' especie='gato'/></mascotas>");
+////		creaDocumentoString(ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML/coleccionCreada/").getCol(), 
+//				"mascotas.xml", "<mascotas><mascota nombre='lolo' especie='perro'/><mascota nombre='mico' especie='gato'/></mascotas>");
+		
+//		descargarDocumento(
+//				ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML/coleccionCreada").getCol(),
+//				"mascotas.xml", "C:\\Users\\Administrador\\Documents");
+		
+
+		subirDocumento(
+				ConexionXMLDB.getInstancia("admin", "toor", "/db/misDocumentosXML/coleccionCreada").getCol(),
+				"C:\\Users\\Administrador\\Documents\\clase.xml");
+
+		
 		
 	}
+
+	private static void subirDocumento(Collection colPadre, String docName) {
+		try {
+			if (colPadre==null) {
+				System.out.println("La colección padre no existe");
+				return;
+			}
+
+			File archivo = new File(docName);
+			XMLResource recurso = (XMLResource) colPadre.createResource(archivo.getName(), XMLResource.RESOURCE_TYPE);
+			recurso.setContent(archivo);
+			colPadre.storeResource(recurso);
+		} catch (XMLDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	private static void descargarDocumento(Collection colPadre, String docName, String URIDestino) {
+		try {
+			if (colPadre==null) {
+				System.out.println("La colección padre no existe");
+				return;
+			}
+			XMLResource recurso = (XMLResource) colPadre.getResource(docName);
+			Node documento = recurso.getContentAsDOM();
+			File f = new File(URIDestino+"/"+docName);
+			Transformer t = TransformerFactory.newInstance().newTransformer();
+			t.transform(new DOMSource(documento), new StreamResult(f));
+		} catch (XMLDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerFactoryConfigurationError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 
 

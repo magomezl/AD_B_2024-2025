@@ -52,7 +52,7 @@ public class ConexionXMLDB {
 	}
 	
 	public static ConexionXMLDB getInstancia(String user, String passwd, String URICol) {
-		if (instancia==null) {
+		if (instancia==null ) {
 			instancia = new ConexionXMLDB(user, passwd, URICol);
 		}
 		return instancia;
