@@ -21,7 +21,7 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 
-public class Modelo {
+public class ModeloXMLDB {
 	
 	private static void listarContenido(Collection col) {
 		try {

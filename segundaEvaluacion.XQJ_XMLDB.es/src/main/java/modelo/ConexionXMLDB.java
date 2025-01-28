@@ -9,14 +9,10 @@ import org.xmldb.api.base.XMLDBException;
 
 public class ConexionXMLDB {
 	private static  ConexionXMLDB instancia;
-	private static String user;
-	private static String passwd;
 	private static Collection col; 
 	
 	
 	private ConexionXMLDB(String user, String passwd, String URICol) {
-		this.user = user;
-		this.passwd = passwd;
 		try {
 			Class cl = Class.forName("org.exist.xmldb.DatabaseImpl");
 			Database database = (Database) cl.getDeclaredConstructor().newInstance();
