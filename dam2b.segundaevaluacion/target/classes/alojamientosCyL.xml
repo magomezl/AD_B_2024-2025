@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<establecimientos>
+    <tipo denominacion="Casa Rural de Alquiler">
+        <casos provincia="Ávila">543.0</casos>
+        <casos provincia="Burgos">110.0</casos>
+        <casos provincia="León">254.0</casos>
+        <casos provincia="Palencia">134.0</casos>
+        <casos provincia="Salamanca">302.0</casos>
+        <casos provincia="Segovia">0.0</casos>
+        <casos provincia="Soria">145.0</casos>
+        <casos provincia="Valladolid">35.0</casos>
+        <casos provincia="Zamora">84.0</casos>
+    </tipo>
+    <tipo denominacion="Hotel Rural">
+        <casos provincia="Ávila">52.0</casos>
+        <casos provincia="Burgos">90.0</casos>
+        <casos provincia="León">99.0</casos>
+        <casos provincia="Palencia">39.0</casos>
+        <casos provincia="Salamanca">56.0</casos>
+        <casos provincia="Segovia">46.0</casos>
+        <casos provincia="Soria">62.0</casos>
+        <casos provincia="Valladolid">33.0</casos>
+        <casos provincia="Zamora">54.0</casos>
+    </tipo>
+    <tipo denominacion="Casa Rural">
+        <casos provincia="Ávila">358.0</casos>
+        <casos provincia="Burgos">234.0</casos>
+        <casos provincia="León">134.0</casos>
+        <casos provincia="Palencia">69.0</casos>
+        <casos provincia="Salamanca">197.0</casos>
+        <casos provincia="Segovia">392.0</casos>
+        <casos provincia="Soria">152.0</casos>
+        <casos provincia="Valladolid">131.0</casos>
+        <casos provincia="Zamora">121.0</casos>
+    </tipo>
+    <tipo denominacion="Casa Rural de Alojamiento Compartido">
+        <casos provincia="Ávila">8.0</casos>
+        <casos provincia="Burgos">26.0</casos>
+        <casos provincia="León">30.0</casos>
+        <casos provincia="Palencia">2.0</casos>
+        <casos provincia="Salamanca">12.0</casos>
+        <casos provincia="Segovia">9.0</casos>
+        <casos provincia="Soria">14.0</casos>
+        <casos provincia="Valladolid">2.0</casos>
+        <casos provincia="Zamora">2.0</casos>
+    </tipo>
+    <tipo denominacion="Posada">
+        <casos provincia="Ávila">24.0</casos>
+        <casos provincia="Burgos">17.0</casos>
+        <casos provincia="León">7.0</casos>
+        <casos provincia="Palencia">9.0</casos>
+        <casos provincia="Salamanca">12.0</casos>
+        <casos provincia="Segovia">14.0</casos>
+        <casos provincia="Soria">19.0</casos>
+        <casos provincia="Valladolid">11.0</casos>
+        <casos provincia="Zamora">16.0</casos>
+    </tipo>
+</establecimientos>
