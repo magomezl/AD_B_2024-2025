@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<paises>
+    <pais nombre="España">
+        <habitantes>47.420.000</habitantes>
+        <idiomas_oficiales>
+            <idioma>español</idioma>
+        </idiomas_oficiales>
+        <superficie km2_agua="115.800" km2_tierra="506.030" km_linea_costa="7.905">506.030</superficie>
+        <densidad_poblacion>93,71</densidad_poblacion>
+    </pais>
+    <pais nombre="Alemania">
+        <habitantes>83.200.000</habitantes>
+        <idiomas_oficiales>
+            <idioma>alemán</idioma>
+        </idiomas_oficiales>
+        <superficie km2_agua="8.350" km2_tierra="348.672" km_linea_costa="2.389">357.592</superficie>
+        <densidad_poblacion>238,62</densidad_poblacion>
+    </pais>
+    <pais nombre="Italia">
+        <habitantes>59.110.000</habitantes>
+        <idiomas_oficiales>
+            <idioma>italiano</idioma>
+        </idiomas_oficiales>
+        <superficie km2_agua="7.200" km2_tierra="294.140" km_linea_costa="7.914">302.073</superficie>
+        <densidad_poblacion>200,96</densidad_poblacion>
+    </pais>
+    <pais nombre="Suiza">
+        <habitantes>8.703.000</habitantes>
+        <idiomas_oficiales>
+            <idioma>alemán</idioma>
+            <idioma>francés</idioma>
+            <idioma>italiano</idioma>
+            <idioma>Romanche</idioma>
+        </idiomas_oficiales>
+        <superficie km2_agua="1.740" km2_tierra="39.550" km_linea_costa="0">41.285</superficie>
+        <densidad_poblacion>220,05</densidad_poblacion>
+    </pais>
+    <pais nombre="Bélgica">
+        <habitantes>11.590.000</habitantes>
+        <idiomas_oficiales>
+            <idioma>francés</idioma>
+            <idioma>alemán</idioma>
+            <idioma>neerlandes</idioma>
+        </idiomas_oficiales>
+        <superficie km2_agua="1.892" km2_tierra="28.795" km_linea_costa="66,5">30.688</superficie>
+        <densidad_poblacion>402,5</densidad_poblacion>
+    </pais>
+</paises>
