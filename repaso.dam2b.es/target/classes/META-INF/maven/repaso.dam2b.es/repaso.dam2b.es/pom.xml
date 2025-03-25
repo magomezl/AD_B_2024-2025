@@ -22,5 +22,23 @@
 		<artifactId>jaxb-runtime</artifactId>
 		<version>2.3.1</version>
 	</dependency>
+	<!-- Leer archivos Microsoft Office -->
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+	<!-- Para trabajar con documentos excel con extensión xls-->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi</artifactId>
+		<version>4.1.2</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+	<!-- Para trabajar con documentos excel con extensión xlsx-->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>4.1.2</version>
+	</dependency>
+	
+	
+	
   </dependencies>
 </project>

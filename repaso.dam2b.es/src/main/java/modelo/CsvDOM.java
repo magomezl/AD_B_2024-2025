@@ -29,7 +29,7 @@ public class CsvDOM {
 		try {
 			CSVReader reader = new CSVReader(new FileReader("./src/main/resources/paises.csv"), ',', '"');
 			
-			DecimalFormat formatoDec = new DecimalFormat("#,###.##");
+//			DecimalFormat formatoDec = new DecimalFormat("#,###.##");
 			
 //			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 //			DocumentBuilder dB = dBF.newDocumentBuilder();
@@ -46,7 +46,7 @@ public class CsvDOM {
 					Element pais = doc.createElement("pais");
 					pais.setAttribute("nombre", lineaPais[0]);
 					Element habitantes = doc.createElement("habitantes");
-					habitantes.appendChild(doc.createTextNode(formatoDec.format(Double.parseDouble(lineaPais[1]))));
+					habitantes.appendChild(doc.createTextNode(String.valueOf(Double.parseDouble(lineaPais[1]))));
 					pais.appendChild(habitantes);
 					
 					Element idiomasOficiales = doc.createElement("idiomas_oficiales");
@@ -59,15 +59,15 @@ public class CsvDOM {
 					pais.appendChild(idiomasOficiales);
 					
 					Element superficie = doc.createElement("superficie");
-					superficie.setAttribute("km_linea_costa", formatoDec.format(Double.parseDouble(lineaPais[4])));
-					superficie.setAttribute("km2_agua", formatoDec.format(Double.parseDouble(lineaPais[5])));
-					superficie.setAttribute("km2_tierra", formatoDec.format(Double.parseDouble(lineaPais[6])));
-					superficie.appendChild(doc.createTextNode(formatoDec.format(Double.parseDouble(lineaPais[3]))));
+					superficie.setAttribute("km_linea_costa", String.valueOf(Double.parseDouble(lineaPais[4])));
+					superficie.setAttribute("km2_agua", String.valueOf(Double.parseDouble(lineaPais[5])));
+					superficie.setAttribute("km2_tierra", String.valueOf(Double.parseDouble(lineaPais[6])));
+					superficie.appendChild(doc.createTextNode(String.valueOf(Double.parseDouble(lineaPais[3]))));
 					pais.appendChild(superficie);
 
 					Element densidadPoblacion = doc.createElement("densidad_poblacion");
 					densidadPoblacion.appendChild(doc.createTextNode(String.valueOf(
-							formatoDec.format(Double.parseDouble(lineaPais[1])/Double.parseDouble(lineaPais[6]) ) )));
+							Double.parseDouble(lineaPais[1])/Double.parseDouble(lineaPais[6]) ) ));
 					pais.appendChild(densidadPoblacion);
 					raiz.appendChild(pais);
 				}else {
