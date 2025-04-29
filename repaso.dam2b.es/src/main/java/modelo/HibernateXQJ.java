@@ -22,8 +22,26 @@ public class HibernateXQJ {
 	
 	
 	public static void main(String[] args) {
-		Session sesion = sf.openSession();
-		Transaction t = sesion.beginTransaction();
+		try {
+			Session sesion = sf.openSession();
+			Transaction t = sesion.beginTransaction();
+			if (traspasaReligiones(sesion)==-1) {
+				t.rollback();
+			}else {
+				t.commit();
+			}
+
+			sesion.close();
+
+			xqc.close();
+		} catch (XQException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	private static int traspasaReligiones(Session sesion) {
 		try {
 
 			String queryRel = "for $r in doc(\"EjerciciosRepaso/religiones.xml\")/geografia/religiones/religion  \r\n"
@@ -37,13 +55,13 @@ public class HibernateXQJ {
 				Religiones religion = new Religiones(nodo.getAttributes().getNamedItem("denominacion").getNodeValue());
 				sesion.persist(religion);
 			}
-			t.commit();
-			sesion.close();
+			
 		} catch (XQException e) {
-			t.rollback();
+			
 			e.printStackTrace();
+			return -1;
 		}
-
+		return 0;
 	}
 
 }
