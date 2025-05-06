@@ -11,9 +11,13 @@ public class Practicareligiones implements java.io.Serializable {
 	private Paises paises;
 	private Float practicantes;
 
+	// En esta clase no modifico el documento de mapeo ni creo ningún constructor 
+	
 	public Practicareligiones() {
 	}
-
+	
+	
+	
 	public Practicareligiones(PracticareligionesId id, Religiones religiones, Paises paises) {
 		this.id = id;
 		this.religiones = religiones;

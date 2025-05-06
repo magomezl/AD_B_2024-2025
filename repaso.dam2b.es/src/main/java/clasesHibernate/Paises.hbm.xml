@@ -4,7 +4,7 @@
     <class catalog="geografia" name="clasesHibernate.Paises" optimistic-lock="none" table="paises">
         <id name="idPais" type="int">
             <column name="id_pais"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <property name="nombre" type="string">
             <column length="100" name="nombre" unique="true"/>
